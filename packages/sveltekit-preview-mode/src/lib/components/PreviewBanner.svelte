@@ -2,12 +2,13 @@
   import { page } from "$app/stores";
   import { isPreview } from "../";
 
-  let exit_link: string;
-
-  $: {
-    $page.url.searchParams.set($page.data.exitPreviewQueryParam, "true");
-    exit_link = $page.url.toString();
-  }
+	let exit_link: string;
+	
+	$: if (isPreview()) {
+		const url = new URL($page.url);
+		url.searchParams.set($page.data.exitPreviewQueryParam, 'true');
+		exit_link = url.toString();
+	}
 </script>
 
 {#if isPreview()}
