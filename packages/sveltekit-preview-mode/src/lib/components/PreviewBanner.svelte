@@ -4,13 +4,13 @@
 
   let exit_link: string;
 
-  $: {
+  $: if(isPreview()) {
     $page.url.searchParams.set($page.data.exitPreviewQueryParam, "true");
     exit_link = $page.url.toString();
   }
 </script>
 
-{#if isPreview()}
+{#if exit_link}
   <div class="preview-banner" role="dialog">
     This page is a preview.
     <a rel="external" href={exit_link}>Click here</a>
