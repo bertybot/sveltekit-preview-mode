@@ -4,10 +4,11 @@
 
   let exit_link: string;
 
-  $: {
-    $page.url.searchParams.set($page.data.exitPreviewQueryParam, "true");
-    exit_link = $page.url.toString();
-  }
+	$: if (isPreview()) {
+		const url = new URL($page.url);
+		url.searchParams.set($page.data.exitPreviewQueryParam, 'true');
+		exit_link = url.toString();
+	}
 </script>
 
 {#if isPreview()}
