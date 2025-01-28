@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	const exit_link = $derived.by(() => {
-		const url = $page.url;
-		url.searchParams.set($page.data.exitPreviewQueryParam, 'true');
+		const url = new URL(page.url); //need to make new url object otherwise it will mutate the page store
+		url.searchParams.set(page.data.exitPreviewQueryParam, 'true');
 
 		return url.toString();
 	});
 </script>
 
-{#if $page.data.isPreview}
+{#if page.data.isPreview}
 	<div role="dialog" aria-modal="false" class="preview-banner fly-in">
 		This page is a preview.
 		<a rel="external" href={exit_link}>Click here</a>
